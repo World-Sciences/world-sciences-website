@@ -1,16 +1,89 @@
-# React + Vite
+# World Sciences Redesign
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern redesign of the World Sciences website built with React and Material UI. The goal of this project is to create a scalable publication platform with improved UX, responsive design, article discovery, and future CMS support.
 
-Currently, two official plugins are available:
+# Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+To start, clone the repo using 
+```bash
+git clone https://github.com/kuchekalikurosh/world-sciences.git
+```
 
-## React Compiler
+Then, go into the folder and install all packages using
+```bash
+npm install 
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+To test on local machine, use this command
+```bash
+npm run dev 
+```
 
-## Expanding the ESLint configuration
+# Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Frontend
+
+- React 19
+
+- Vite
+
+- Material UI (MUI v7)
+
+- React Router DOM
+
+## Styling
+
+- Material UI Theme System
+
+- Material UI sx styling
+
+- CssBaseline
+
+## Data (Current)
+
+- Mock JavaScript data (articles.js, authors.js)
+
+## Planned Backend
+
+- ASP.NET Core Web API
+
+- PostgreSQL
+
+- Entity Framework Core
+
+## Planned Features
+- [x] Article search
+- [x] Topic filtering
+- [x] Author pages
+- [x] Featured articles
+- [ ] Admin dashboard
+- [ ] CRUD operations
+- [ ] Authentication & authorization
+- [ ] Rich text editor
+- [ ] Image uploads
+
+# Branch Strategy
+
+main → Stable/approved version
+
+develop → Active development
+
+# Project Structure
+
+src/ - contains all folders of the project
+
+assets/ - contains all image data such as profiles
+  
+components/ - contains all components and respective CSS files, seperated in folders of their own
+  
+data/ - contains mock .js files for as data
+  
+layouts/ - MaterialUI layout
+  
+pages/ - different pages of the site sit here
+  
+theme/ - MaterialUI theme definition
+
+App.jsx - root component of the application (this is where the routing takes place as well)
+
+main.jsx - entry point of the web app
