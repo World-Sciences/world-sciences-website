@@ -66,7 +66,7 @@ npm run dev
 
 main → Stable/approved version
 
-develop → Active development
+features → Active development
 
 # Project Structure
 
