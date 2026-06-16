@@ -62,7 +62,13 @@ export const aLoseLoseSituationWhyAnAmericanVictoryIsImpossibleInIranContent = [
     "text": "Although the Iraq War has been routinely savaged by all ends of the political spectrum, the US government seems hellbent on making the same strategic mistakes. While Iran has learned from history and adapted to the American strategy, the US has not done the same due diligence. The US faces two outcomes at this moment: fail to impel regime change in Iran, or succeed and leave behind a fractured state rife with sectarian conflict. The ensuing fallout of “successful” regime change will keep the US in Iran, foment generations of anti-American sentiment, and likely prop up another militantly anti-Western regime. No matter which direction this war goes, an American victory is not one of the possible outcomes. American hubris has become the enemy of strategic thinking, triggering a cycle of perpetual warmongering. If future American administrations refuse to learn from history, this will not be our last war in the Middle East."
   },
   {
-    "type": "caption",
+    "type": "paragraph",
     "text": "All images sourced from Wikimedia Commons under Creative Commons 4.0 License"
   },
+  {
+    "type": "image",
+    "src": "https://images.squarespace-cdn.com/content/v2/namespaces/memberAccountAvatars/libraries/69b86fa858ea3e28321f9940/a9ab6c74-523a-4230-a773-e7ca958bd799/thirdPartyMemberAvatar-69b86fa858ea3e28321f9940-d7dbcd85-245e-4d5e-99df-f1843420fbac?format=300w",
+    "alt": "",
+    "caption": ""
+  }
 ];
