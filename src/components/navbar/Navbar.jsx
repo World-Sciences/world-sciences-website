@@ -1,4 +1,11 @@
-import { AppBar, Box, Button, Container, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  Container,
+  Toolbar,
+  Typography,
+} from "@mui/material";
 import { NavLink } from "react-router-dom";
 
 const navItems = [
@@ -36,17 +43,55 @@ export default function Navbar() {
             World Sciences
           </Typography>
 
-          <Box sx={{ display: "flex", gap: 1 }}>
+          <Box sx={{ display: "flex", gap: 2 }}>
             {navItems.map((item) => (
               <Button
                 key={item.path}
                 component={NavLink}
                 to={item.path}
+                disableRipple
                 sx={{
+                  position: "relative",
                   color: "text.primary",
-                  "&.active": {
-                    borderBottom: "2px solid black",
-                    borderRadius: 0,
+                  textTransform: "none",
+                  minWidth: "auto",
+                  px: 0,
+                  py: 1,
+                  borderRadius: 0,
+                  backgroundColor: "transparent",
+
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                  },
+
+                  "&:focus": {
+                    outline: "none",
+                    backgroundColor: "transparent",
+                  },
+
+                  "&:active": {
+                    backgroundColor: "transparent",
+                  },
+
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    left: 0,
+                    bottom: 4,
+                    width: "100%",
+                    height: "2px",
+                    backgroundColor: "black",
+                    transform: "scaleX(0)",
+                    transformOrigin: "left",
+                    transition: "transform 0.25s ease",
+                  },
+
+                  "&:hover::after": {
+                    transform: "scaleX(1)",
+                  },
+
+                  "&.active::after": {
+                    transform: "scaleX(1)",
                   },
                 }}
               >

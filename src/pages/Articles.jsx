@@ -1,7 +1,7 @@
 import { Box, Chip, Container, Grid, Stack, TextField, Typography } from "@mui/material";
 import { useMemo, useState } from "react";
 import ArticleCard from "../components/article_card/ArticleCard";
-import { articles } from "../data/articles";
+import { articles } from "../data/articles.generated";
 
 export default function Articles() {
   const [search, setSearch] = useState("");

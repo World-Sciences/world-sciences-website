@@ -1,48 +1,165 @@
-import { Container, Grid, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 export default function About() {
   return (
-    <Container maxWidth="lg" sx={{ py: 7 }}>
-      <Typography variant="h1" sx={{ fontSize: { xs: "3rem", md: "4.5rem" }, mb: 3 }}>
-        About World Sciences
-      </Typography>
-
-      <Grid container spacing={4}>
-        <Grid size={{ xs: 12 }}>
-          <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.1rem", lineHeight: 1.8 }}>
-            World Sciences is an independent publication focused on examining global events, emerging trends, 
-            and the broader systems shaping the modern world. Through thoughtful editorial work and long-form analysis, 
-            World Sciences explores the deeper context behind geopolitical developments, economic shifts, and societal change. 
-            Rather than reacting to headlines alone, World Sciences is dedicated to understanding the patterns, forces, and 
-            historical context that influence events across regions and industries. 
-            The goal of World Sciences is to provide readers with structured insight and perspective, offering a space for careful analysis of the developments 
-            that continue to shape the global landscape.
-          </Typography>
-        </Grid>
-
-        <Grid item xs={12} md={7}>
-            <Typography variant="body1" color="text.secondary" sx={{ fontSize: "1.1rem", lineHeight: 1.8 }}>
-                Our editorial work focuses on providing context and thoughtful perspective to readers through examining global events, 
-                emerging trends, and the broader forces shaping the modern world.
+    <Box sx={{ backgroundColor: "#000", color: "#fff", py: 8 }}>
+      <Container maxWidth="lg">
+        <Grid container spacing={8}>
+          {/* Who We Are */}
+          <Grid size={{ xs: 12, md: 6 }}>
+            <Typography
+              variant="h1"
+              sx={{
+                fontSize: { xs: "3rem", md: "4.5rem" },
+                mb: 4,
+                color: "#e5e5e5",
+              }}
+            >
+              Who we are
             </Typography>
-        </Grid>
 
-        <Grid size={{ xs: 12, md: 5 }}>
-          <Paper elevation={0} sx={{ p: 4, border: "1px solid", borderColor: "divider" }}>
-            <Typography variant="h5" gutterBottom>
-              TODO:
+            <Typography
+              sx={{
+                fontSize: "1.2rem",
+                lineHeight: 1.8,
+                color: "#f1f1f1",
+              }}
+            >
+              World Sciences is an independent publication focused on examining
+              global events, emerging trends, and the broader systems shaping the
+              modern world. Through thoughtful editorial work and long-form
+              analysis, World Sciences explores the deeper context behind
+              geopolitical developments, economic shifts, and societal change.
+              Rather than reacting to headlines alone, World Sciences is
+              dedicated to understanding the patterns, forces, and historical
+              context that influence events across regions and industries.
             </Typography>
-            <Typography color="text.secondary">
-              Cleaner article browsing, stronger visual hierarchy, responsive layouts,
-              author profiles, and a future-ready structure for search, filtering, and admin tools.
+          </Grid>
 
-              Expand About page to feature authors, editors, etc.
-
-              Basically do a lot more work than this, but still a decent prototype.
+          {/* Contact Form */}
+          <Grid size={{ xs: 12, md: 6 }}>
+            <Typography
+              variant="h1"
+              sx={{
+                fontSize: { xs: "3rem", md: "4.5rem" },
+                mb: 4,
+                color: "#e5e5e5",
+              }}
+            >
+              Contact Us
             </Typography>
-          </Paper>
+
+            <Typography sx={{ mb: 1 }}>Name</Typography>
+
+            <Grid container spacing={2}>
+              <Grid size={{ xs: 12, md: 6 }}>
+                <TextField
+                  fullWidth
+                  label="First Name"
+                  variant="outlined"
+                  InputLabelProps={{ style: { color: "#ddd" } }}
+                  sx={fieldStyles}
+                />
+              </Grid>
+
+              <Grid size={{ xs: 12, md: 6 }}>
+                <TextField
+                  fullWidth
+                  label="Last Name"
+                  variant="outlined"
+                  InputLabelProps={{ style: { color: "#ddd" } }}
+                  sx={fieldStyles}
+                />
+              </Grid>
+
+              <Grid size={{ xs: 12 }}>
+                <TextField
+                  fullWidth
+                  label="Email"
+                  variant="outlined"
+                  sx={fieldStyles}
+                  InputLabelProps={{ style: { color: "#ddd" } }}
+                />
+              </Grid>
+
+              <Grid size={{ xs: 12 }}>
+                <TextField
+                  fullWidth
+                  label="Phone"
+                  variant="outlined"
+                  sx={fieldStyles}
+                  InputLabelProps={{ style: { color: "#ddd" } }}
+                />
+              </Grid>
+
+              <Grid size={{ xs: 12 }}>
+                <TextField
+                  fullWidth
+                  label="Message"
+                  variant="outlined"
+                  multiline
+                  rows={4}
+                  sx={fieldStyles}
+                  InputLabelProps={{ style: { color: "#ddd" } }}
+                />
+              </Grid>
+            </Grid>
+
+            <Button
+              variant="contained"
+              sx={{
+                mt: 3,
+                px: 4,
+                py: 1.4,
+                borderRadius: 999,
+                backgroundColor: "#e8e8e8",
+                color: "#000",
+                "&:hover": {
+                  backgroundColor: "#fff",
+                },
+              }}
+            >
+              Submit
+            </Button>
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </Box>
   );
 }
+
+const fieldStyles = {
+  mb: 2,
+
+  "& .MuiInputLabel-root": {
+    color: "#9e9e9e", // medium gray
+  },
+
+  "& .MuiInputLabel-root.Mui-focused": {
+    color: "#bdbdbd",
+  },
+
+  "& .MuiOutlinedInput-root": {
+    color: "#fff",
+    borderRadius: "8px",
+
+    "& fieldset": {
+      borderColor: "#ddd",
+    },
+
+    "&:hover fieldset": {
+      borderColor: "#fff",
+    },
+
+    "&.Mui-focused fieldset": {
+      borderColor: "#fff",
+    },
+  },
+};
