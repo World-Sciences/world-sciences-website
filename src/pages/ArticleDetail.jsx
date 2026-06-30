@@ -1,13 +1,13 @@
-import { Avatar, Box, Chip, Container, Stack, Typography } from "@mui/material";
+import { Box, Chip, Container, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { articles } from "../data/articles.generated";
-import { authors } from "../data/authors";
+import ArticleByline from "../components/article_by_line/ArticleByLine";
+import { getArticleBySlug, getAuthorById } from "../services/articlesService";
 
 export default function ArticleDetail() {
   const { slug } = useParams();
 
-  const article = articles.find((item) => item.slug === slug);
-  const author = authors.find((a) => a.id === article?.authorId);
+  const article = getArticleBySlug(slug);
+  const author = getAuthorById(article?.authorId);
 
   if (!article) {
     return (
@@ -19,7 +19,11 @@ export default function ArticleDetail() {
 
   return (
     <Container maxWidth="md" sx={{ py: 7 }}>
-      <Chip label={article.topic} sx={{ mb: 3 }} />
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 3 }}>
+        {(article.topics || [article.topic]).map((topic) => (
+          <Chip key={topic} label={topic} />
+        ))}
+      </Box>
 
       <Typography
         variant="h1"
@@ -35,18 +39,7 @@ export default function ArticleDetail() {
         {article.excerpt}
       </Typography>
 
-      <Stack direction="row" spacing={1.5} alignItems="center" sx={{ my: 4 }}>
-        <Avatar src={author?.avatar} alt={author?.name}>
-          {author?.name?.charAt(0)}
-        </Avatar>
-
-        <Box>
-          <Typography>{author?.name}</Typography>
-          <Typography variant="caption" color="text.secondary">
-            {article.date} · {article.readTime}
-          </Typography>
-        </Box>
-      </Stack>
+      <ArticleByline article={article} author={author} sx={{ my: 4 }} />
 
       {article.contentBlocks?.map((block, index) => {
         if (block.type === "paragraph") {

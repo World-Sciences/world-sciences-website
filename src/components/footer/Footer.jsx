@@ -6,7 +6,7 @@ export default function Footer() {
       <Container maxWidth="lg">
         <Divider sx={{ mb: 3 }} />
         <Typography variant="body2" color="text.secondary">
-          © 2026 World Sciences. A modern publication prototype.
+          Copyright 2026 World Sciences. A modern publication prototype.
         </Typography>
       </Container>
     </Box>

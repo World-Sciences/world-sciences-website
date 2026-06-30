@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Box,
   Button,
   Chip,
@@ -9,15 +8,16 @@ import {
   Typography,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import ArticleByline from "../components/article_by_line/ArticleByLine";
 import ArticleCard from "../components/article_card/ArticleCard";
-import NewsletterSignup from "../components/newsletter/NewsletterSignup";
-import { articles } from "../data/articles.generated";
-import { authors } from "../data/authors";
+import NewsletterSignUp from "../components/newsletter/NewsletterSignUp";
+import wsLogo from "../assets/images/ws_logo.jpg";
+import { getAuthorById, newestArticles } from "../services/articlesService";
 
 export default function Home() {
-  const featured = articles[0];
-  const latest = articles.slice(1);
-  const featuredAuthor = authors.find((a) => a.id === featured?.authorId);
+  const featured = newestArticles[0];
+  const latest = newestArticles.slice(1);
+  const featuredAuthor = getAuthorById(featured?.authorId);
 
   if (!featured) {
     return <Typography>No featured article found.</Typography>;
@@ -29,7 +29,7 @@ export default function Home() {
         {/* Hero Section */}
         <Grid container spacing={6} sx={{ alignItems: "center", mb: 10 }}>
           <Grid size={{ xs: 12, md: 6 }}>
-            <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: 2 }}>
+            <Typography variant="overline" color="text.secondary" sx={{ letterSpacing: 0 }}>
               Independent Analysis
             </Typography>
 
@@ -59,12 +59,12 @@ export default function Home() {
           <Grid size={{ xs: 12, md: 6 }}>
             <Box
               component="img"
-              src={featured.image}
+              src={wsLogo}
               alt="World Sciences hero"
               sx={{
                 width: "100%",
                 height: { xs: 300, md: 460 },
-                objectFit: "cover",
+                objectFit: "contain",
                 borderRadius: 3,
                 display: "block",
               }}
@@ -110,7 +110,11 @@ export default function Home() {
               />
 
               <Box sx={{ p: { xs: 3, md: 5 } }}>
-                <Chip label={featured.topic} size="small" sx={{ mb: 2 }} />
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 2 }}>
+                  {(featured.topics || [featured.topic]).slice(0, 4).map((topic) => (
+                    <Chip key={topic} label={topic} size="small" />
+                  ))}
+                </Box>
 
                 <Typography
                   variant="h2"
@@ -127,18 +131,7 @@ export default function Home() {
                   {featured.excerpt}
                 </Typography>
 
-                <Stack direction="row" spacing={1.5} alignItems="center">
-                  <Avatar src={featuredAuthor?.avatar} alt={featuredAuthor?.name}>
-                    {featuredAuthor?.name?.charAt(0)}
-                  </Avatar>
-
-                  <Box>
-                    <Typography variant="body2">{featuredAuthor?.name}</Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      {featured.date} · {featured.readTime}
-                    </Typography>
-                  </Box>
-                </Stack>
+                <ArticleByline article={featured} author={featuredAuthor} />
               </Box>
             </Box>
           </Box>
@@ -160,7 +153,7 @@ export default function Home() {
         </Box>
       </Container>
 
-      <NewsletterSignup />
+      <NewsletterSignUp />
     </>
   );
 }

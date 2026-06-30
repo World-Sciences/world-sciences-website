@@ -36,7 +36,7 @@ export default function Navbar() {
               color: "text.primary",
               textDecoration: "none",
               fontFamily: "Georgia, serif",
-              letterSpacing: "-0.03em",
+              letterSpacing: 0,
               flexGrow: 1,
             }}
           >

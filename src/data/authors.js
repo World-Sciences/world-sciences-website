@@ -13,4 +13,11 @@ export const authors = [
     avatar: "",
     bio: "Contributor covering history, technology, and culture.",
   },
+  {
+    id: 3,
+    name: "Kyle L.",
+    slug: "kyle-l",
+    avatar: "",
+    bio: ""
+  },
 ];

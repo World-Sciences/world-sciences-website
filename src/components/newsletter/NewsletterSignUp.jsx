@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 
-export default function NewsletterSignup() {
+export default function NewsletterSignUp() {
   return (
     <Box sx={{ py: 8, backgroundColor: "background.default" }}>
       <Container maxWidth="md">
