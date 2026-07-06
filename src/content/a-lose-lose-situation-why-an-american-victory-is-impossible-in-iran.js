@@ -64,11 +64,5 @@ export const aLoseLoseSituationWhyAnAmericanVictoryIsImpossibleInIranContent = [
   {
     "type": "paragraph",
     "text": "All images sourced from Wikimedia Commons under Creative Commons 4.0 License"
-  },
-  {
-    "type": "image",
-    "src": "https://images.squarespace-cdn.com/content/v2/namespaces/memberAccountAvatars/libraries/69b86fa858ea3e28321f9940/a9ab6c74-523a-4230-a773-e7ca958bd799/thirdPartyMemberAvatar-69b86fa858ea3e28321f9940-d7dbcd85-245e-4d5e-99df-f1843420fbac?format=300w",
-    "alt": "",
-    "caption": ""
   }
 ];

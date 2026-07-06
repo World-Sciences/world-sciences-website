@@ -7,17 +7,33 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ArticleByline from "../components/article_by_line/ArticleByLine";
 import ArticleCard from "../components/article_card/ArticleCard";
 import NewsletterSignUp from "../components/newsletter/NewsletterSignUp";
 import wsLogo from "../assets/images/ws_logo.jpg";
-import { getAuthorById, newestArticles } from "../services/articlesService";
+import { getArticles, getAuthorById, newestArticles } from "../services/articlesService";
 
 export default function Home() {
-  const featured = newestArticles[0];
-  const latest = newestArticles.slice(1);
-  const featuredAuthor = getAuthorById(featured?.authorId);
+  const [homeArticles, setHomeArticles] = useState(newestArticles);
+  const featured = homeArticles[0];
+  const latest = homeArticles.slice(1, 4);
+  const featuredAuthor = featured?.author || getAuthorById(featured?.authorId);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    getArticles().then((articles) => {
+      if (isMounted) {
+        setHomeArticles(articles);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   if (!featured) {
     return <Typography>No featured article found.</Typography>;
@@ -150,6 +166,12 @@ export default function Home() {
               </Grid>
             ))}
           </Grid>
+
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+            <Button variant="outlined" component={Link} to="/articles">
+              View All Articles
+            </Button>
+          </Box>
         </Box>
       </Container>
 

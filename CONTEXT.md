@@ -31,6 +31,14 @@ Small safe fixes are acceptable when requested, but default to teaching and revi
 - Static/mock article and author data
 - Article body content stored as `contentBlocks` in `src/content`
 
+## Current Backend Stack
+
+- ASP.NET Core Web API
+- .NET 9
+- Minimal APIs
+- In-memory seed data for the first scaffold
+- PostgreSQL and Entity Framework Core are planned but not added yet
+
 ## Current Architecture
 
 Entry flow:
@@ -68,7 +76,7 @@ src/data/authors.js
   -> author metadata used by article cards and detail pages
 
 src/services/articlesService.js
-  -> enriches generated article data with manual metadata and author search fields
+  -> fetches article data from the backend API and falls back to enriched generated data
 ```
 
 Article import flow:
@@ -80,7 +88,27 @@ scripts/articleUrls.js
     -> generates src/data/articles.generated.js
 ```
 
-There is no backend yet. Contact and newsletter forms are frontend-only UI for now.
+The backend scaffold exists, but the frontend is not connected to it yet. Contact and newsletter forms are still frontend-only UI for now.
+
+Backend flow:
+
+```txt
+backend/WorldSciences.Api/Program.cs
+  -> maps /api routes
+  -> reads temporary data from WorldSciencesSeedData
+  -> returns DTOs from backend/WorldSciences.Api/Dtos
+```
+
+Current backend endpoints:
+
+```txt
+GET /api/health
+GET /api/articles
+GET /api/articles/{slug}
+GET /api/authors
+GET /api/authors/{slug}
+GET /api/topics
+```
 
 ## Important Files
 
@@ -95,6 +123,7 @@ There is no backend yet. Contact and newsletter forms are frontend-only UI for n
 - `src/components/navbar/Navbar.jsx`: Top navigation with animated underline.
 - `src/components/newsletter/NewsletterSignUp.jsx`: Newsletter signup UI.
 - `src/components/footer/Footer.jsx`: Site footer.
+- `src/components/scroll_to_top/ScrollToTop.jsx`: Resets scroll position to the top when React Router changes pages.
 - `src/theme/theme.js`: MUI theme.
 - `src/data/articles.generated.js`: Generated article metadata.
 - `src/data/articleMetadata.js`: Manual article topics and search terms that should survive scraper regeneration.
@@ -102,6 +131,10 @@ There is no backend yet. Contact and newsletter forms are frontend-only UI for n
 - `src/services/articlesService.js`: Shared enriched article data helpers used by pages and search.
 - `scripts/importArticles.js`: Scrapes article pages and regenerates static content.
 - `scripts/articleUrls.js`: Source URLs for article import.
+- `backend/WorldSciences.Api/Program.cs`: ASP.NET Core API entrypoint and route definitions.
+- `backend/WorldSciences.Api/Models`: Backend domain records for articles, authors, topics, and content blocks.
+- `backend/WorldSciences.Api/Dtos`: API response contracts returned to clients.
+- `backend/WorldSciences.Api/Data/WorldSciencesSeedData.cs`: Temporary in-memory seed data until EF Core/PostgreSQL are added.
 
 ## Known Issues And Technical Debt
 
@@ -149,26 +182,38 @@ Additional frontend progress:
 - Removed `src/utils/search.js` after switching to Fuse.js.
 - Added `src/services/articlesService.js` so Home, Articles, ArticleDetail, and ArticleCard share enriched article metadata.
 - Article cards and detail pages now display metadata-backed topic tags instead of the generated single `topic` value.
+- Added `src/components/article_content/ArticleContent.jsx` and moved article block rendering out of `ArticleDetail.jsx`.
+- Removed generated Squarespace profile/avatar image blocks from imported article content files.
+- Added `src/components/scroll_to_top/ScrollToTop.jsx` so route changes start at the top of the new page.
+- Connected Home, Articles, and ArticleDetail to async article service calls.
+- `src/services/articlesService.js` now fetches `/api/articles` and `/api/articles/{slug}` from the backend, maps backend DTOs into the frontend article shape, and falls back to local generated data if the API is unavailable.
+
+Backend progress:
+
+- Created `backend/WorldSciences.Api` as an ASP.NET Core Web API targeting .NET 9.
+- Replaced the weather sample endpoint with World Sciences public read endpoints.
+- Added CORS for the local Vite frontend origins.
+- Added initial domain records, DTO records, and in-memory seed data.
+- Verified `dotnet build backend/WorldSciences.Api/WorldSciences.Api.csproj`.
+- Ran the API locally on `http://127.0.0.1:5156` and verified health/articles/authors/topics endpoints.
+- Updated `.gitignore` to ignore .NET `bin/` and `obj/` artifacts.
+- Frontend service layer can now consume the backend read endpoints, though the backend seed data is still incomplete.
 
 ## Recommended Next Frontend Exercises
 
-1. Extract `ArticleContent`.
-   - Suggested path: `src/components/article_content/ArticleContent.jsx`
-   - Move `contentBlocks.map(...)` rendering out of `ArticleDetail.jsx`.
-
-2. Clean generated article data and scraper behavior.
+1. Clean generated article data and scraper behavior.
    - Fix malformed URLs.
    - Avoid duplicate caption paragraphs.
    - Avoid importing author/avatar images as article images.
    - Normalize text encoding.
 
-3. Replace the default Vite README with real project documentation.
+2. Replace the default Vite README with real project documentation.
 
 ## Backend Direction
 
-Backend work should start after the frontend feels stable.
+Backend work has started with a minimal public API scaffold.
 
-Likely backend stack:
+Planned backend stack:
 
 - ASP.NET Core Web API
 - PostgreSQL
@@ -190,10 +235,20 @@ Future backend capabilities:
 Possible first backend phases:
 
 ```txt
-Phase 1: Public read APIs for articles, authors, and topics
+Phase 1: Public read APIs for articles, authors, and topics (started with in-memory data)
 Phase 2: Newsletter signup and contact submissions
 Phase 3: Admin authentication and article CRUD
 Phase 4: Image uploads and rich content editing
 ```
 
 The frontend currently uses structured `contentBlocks`. Preserve that shape until there is a clear reason to switch to Markdown, HTML, or a richer editor format.
+
+Next backend steps:
+
+1. Decide whether to keep minimal APIs or move to controllers before the API grows.
+2. Add EF Core and PostgreSQL packages.
+3. Create a real `WorldSciencesDbContext`.
+4. Convert current in-memory models into EF entities.
+5. Add initial migrations.
+6. Seed/import article data from the existing frontend-generated content.
+7. Once backend seed/import data is complete, remove or reduce the frontend's local data fallback.

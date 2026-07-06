@@ -12,7 +12,7 @@ import { authors } from "../../data/authors";
 import ArticleByline from "../article_by_line/ArticleByLine";
 
 export default function ArticleCard({ article }) {
-  const author = authors.find((a) => a.id === article.authorId);
+  const author = article.author || authors.find((a) => a.id === article.authorId);
   const displayTopics = article.topics || [article.topic];
 
   return (

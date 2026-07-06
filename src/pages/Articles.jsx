@@ -1,68 +1,89 @@
 import { Autocomplete, Box, Chip, Container, Grid, TextField, Typography } from "@mui/material";
 import Fuse from "fuse.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArticleCard from "../components/article_card/ArticleCard";
-import { newestArticles } from "../services/articlesService";
+import { getArticles, newestArticles } from "../services/articlesService";
 
-const searchSuggestions = [
-  ...newestArticles.map((article) => ({
-    label: article.title,
-    type: "Article",
-    keywords: [
-      ...article.topics,
-      ...article.searchTerms,
-      article.authorName,
-    ],
-  })),
-  ...[...new Set(newestArticles.flatMap((article) => article.topics))].map((topic) => ({
-    label: topic,
-    type: "Topic",
-    keywords: [],
-  })),
-  ...[...new Set(newestArticles.map((article) => article.authorName).filter(Boolean))].map(
-    (authorName) => ({
-      label: authorName,
-      type: "Author",
-      keywords: [],
-    })
-  ),
-];
-
-const suggestionSearch = new Fuse(searchSuggestions, {
-  ignoreLocation: true,
-  minMatchCharLength: 2,
-  shouldSort: true,
-  threshold: 0.35,
-  keys: [
-    { name: "label", weight: 0.75 },
-    { name: "keywords", weight: 0.25 },
-  ],
-});
-
-const articleSearch = new Fuse(newestArticles, {
-  includeScore: true,
-  ignoreLocation: true,
-  minMatchCharLength: 2,
-  shouldSort: true,
-  threshold: 0.35,
-  keys: [
-    { name: "title", weight: 0.35 },
-    { name: "excerpt", weight: 0.2 },
-    { name: "topics", weight: 0.2 },
-    { name: "searchTerms", weight: 0.2 },
-    { name: "authorName", weight: 0.2 },
-    { name: "authorSlug", weight: 0.15 },
-    { name: "authorBio", weight: 0.1 },
-  ],
-});
+const suggestionTypeOrder = {
+  Topic: 0,
+  Article: 1,
+  Author: 2,
+};
 
 export default function Articles() {
+  const [articles, setArticles] = useState(newestArticles);
   const [search, setSearch] = useState("");
   const [topic, setTopic] = useState("All");
 
+  useEffect(() => {
+    let isMounted = true;
+
+    getArticles().then((loadedArticles) => {
+      if (isMounted) {
+        setArticles(loadedArticles);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const searchSuggestions = [
+    ...articles.map((article) => ({
+      label: article.title,
+      type: "Article",
+      keywords: [
+        ...article.topics,
+        ...article.searchTerms,
+        article.authorName,
+      ],
+    })),
+    ...[...new Set(articles.flatMap((article) => article.topics))].map((item) => ({
+      label: item,
+      type: "Topic",
+      keywords: [],
+    })),
+    ...[...new Set(articles.map((article) => article.authorName).filter(Boolean))].map(
+      (authorName) => ({
+        label: authorName,
+        type: "Author",
+        keywords: [],
+      })
+    ),
+  ];
+
+  const suggestionSearch = new Fuse(searchSuggestions, {
+    ignoreLocation: true,
+    minMatchCharLength: 2,
+    shouldSort: true,
+    threshold: 0.35,
+    keys: [
+      { name: "label", weight: 0.75 },
+      { name: "keywords", weight: 0.25 },
+    ],
+  });
+
+  const articleSearch = new Fuse(articles, {
+    includeScore: true,
+    ignoreLocation: true,
+    minMatchCharLength: 2,
+    shouldSort: true,
+    threshold: 0.35,
+    keys: [
+      { name: "title", weight: 0.35 },
+      { name: "excerpt", weight: 0.2 },
+      { name: "topics", weight: 0.2 },
+      { name: "searchTerms", weight: 0.2 },
+      { name: "authorName", weight: 0.2 },
+      { name: "authorSlug", weight: 0.15 },
+      { name: "authorBio", weight: 0.1 },
+    ],
+  });
+
   const topics = [
     "All",
-    ...new Set(newestArticles.flatMap((article) => article.topics)),
+    ...new Set(articles.flatMap((article) => article.topics)),
   ].sort((left, right) => {
     if (left === "All") {
       return -1;
@@ -77,11 +98,24 @@ export default function Articles() {
 
   const searchedArticles = search.trim()
     ? articleSearch.search(search.trim()).map((result) => result.item)
-    : newestArticles;
+    : articles;
 
   const visibleSearchSuggestions =
     search.trim().length >= 2
-      ? suggestionSearch.search(search.trim()).slice(0, 6).map((result) => result.item)
+      ? suggestionSearch
+          .search(search.trim())
+          .slice(0, 12)
+          .map((result, index) => ({ ...result.item, scoreIndex: index }))
+          .sort((left, right) => {
+            const typeDifference = suggestionTypeOrder[left.type] - suggestionTypeOrder[right.type];
+
+            if (typeDifference !== 0) {
+              return typeDifference;
+            }
+
+            return left.scoreIndex - right.scoreIndex;
+          })
+          .slice(0, 6)
       : [];
 
   const filteredArticles = searchedArticles.filter((article) => {
