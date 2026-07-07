@@ -17,7 +17,7 @@ const theme = createTheme({
     },
     
     typography: {
-        fontFamily: `"Inter", "Halventica", "Arial", sans-serif`,
+        fontFamily: `"Inter", "Helvetica", "Arial", sans-serif`,
         h1: { fontFamily: `"Georgia", serif`, fontWeight: 500 },
         h2: { fontFamily: `"Georgia", serif`, fontWeight: 500 },
         h3: { fontFamily: `"Georgia", serif`, fontWeight: 500 },
@@ -26,7 +26,7 @@ const theme = createTheme({
         button: { textTransform: "none", fontWeight: 600 },  
     },
     shape: {
-        borderRadius: 10,
+        borderRadius: 8,
     },
 });
 

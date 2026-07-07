@@ -1,4 +1,9 @@
 export const articleUrls = [
+
+  // links need to be in order from oldest to latest
+  // all links need to be included when importing
+  // i will go link by link and fix any issues
+
   "https://www.worldsciences.info/articles/a-lose-lose-situation-why-an-american-victory-is-impossible-in-iran",
   "https://www.worldsciences.info/articles/iran-to-trump-come-and-take-it",
   "https://www.worldsciences.info/articles/roaring-lions-how-the-war-in-iran-advances-israels-grand-strategy",
