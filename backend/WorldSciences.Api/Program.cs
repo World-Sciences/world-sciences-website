@@ -1,8 +1,13 @@
+using WorldSciences.Api.Configuration;
 using WorldSciences.Api.Data;
 using WorldSciences.Api.Dtos;
 using WorldSciences.Api.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+MongoConfiguration.Register();
+builder.Services.Configure<MongoSettings>(builder.Configuration.GetSection("Mongo"));
+builder.Services.AddSingleton<IWorldSciencesStore, MongoWorldSciencesStore>();
 
 builder.Services.AddCors(options =>
 {
@@ -23,41 +28,39 @@ var api = app.MapGroup("/api");
 
 api.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
-api.MapGet("/articles", () =>
+api.MapGet("/articles", async (IWorldSciencesStore store) =>
 {
-    var authors = WorldSciencesSeedData.Authors.ToDictionary(author => author.Id);
+    var authors = (await store.GetAuthorsAsync()).ToDictionary(author => author.Id);
+    var articles = await store.GetArticlesAsync();
 
-    return WorldSciencesSeedData.Articles
-        .OrderByDescending(article => article.PublishedAt)
-        .Select(article => ToSummaryDto(article, authors[article.AuthorId]));
+    return articles.Select(article => ToSummaryDto(article, authors[article.AuthorId]));
 });
 
-api.MapGet("/articles/{slug}", (string slug) =>
+api.MapGet("/articles/{slug}", async (string slug, IWorldSciencesStore store) =>
 {
-    var article = WorldSciencesSeedData.Articles
-        .FirstOrDefault(item => string.Equals(item.Slug, slug, StringComparison.OrdinalIgnoreCase));
+    var article = await store.GetArticleBySlugAsync(slug);
 
     if (article is null)
     {
         return Results.NotFound();
     }
 
-    var author = WorldSciencesSeedData.Authors.First(item => item.Id == article.AuthorId);
+    var author = await store.GetAuthorByIdAsync(article.AuthorId);
 
-    return Results.Ok(ToDetailDto(article, author));
+    return Results.Ok(ToDetailDto(article, author!));
 });
 
-api.MapGet("/authors", () => WorldSciencesSeedData.Authors.Select(ToAuthorDto));
+api.MapGet("/authors", async (IWorldSciencesStore store) =>
+    (await store.GetAuthorsAsync()).Select(ToAuthorDto));
 
-api.MapGet("/authors/{slug}", (string slug) =>
+api.MapGet("/authors/{slug}", async (string slug, IWorldSciencesStore store) =>
 {
-    var author = WorldSciencesSeedData.Authors
-        .FirstOrDefault(item => string.Equals(item.Slug, slug, StringComparison.OrdinalIgnoreCase));
+    var author = await store.GetAuthorBySlugAsync(slug);
 
     return author is null ? Results.NotFound() : Results.Ok(ToAuthorDto(author));
 });
 
-api.MapGet("/topics", () => WorldSciencesSeedData.Topics.OrderBy(topic => topic.Name));
+api.MapGet("/topics", async (IWorldSciencesStore store) => await store.GetTopicsAsync());
 
 app.Run();
 
