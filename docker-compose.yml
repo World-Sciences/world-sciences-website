@@ -12,5 +12,18 @@ services:
       timeout: 5s
       retries: 10
 
+  mongo-seed:
+    build:
+      context: ./seed
+    depends_on:
+      mongo:
+        condition: service_healthy
+    volumes:
+      - ./seed:/seed:ro
+    environment:
+      MONGO_HOST: mongo
+      MONGO_DB: worldsciences
+    restart: "no"
+
 volumes:
   world-sciences-mongo-data:
