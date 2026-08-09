@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "Tejas B.", "slug": "tejas-b", "avatarUrl": null, "bio": "Writer focused on politics, science, and global affairs." },
+  { "id": 2, "name": "Shiv R.", "slug": "shiv-r", "avatarUrl": null, "bio": "Contributor covering history, technology, and culture." },
+  { "id": 3, "name": "Kyle L.", "slug": "kyle-l", "avatarUrl": null, "bio": "Contributor covering international politics and security." }
+]
