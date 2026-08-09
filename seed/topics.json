@@ -1,0 +1,10 @@
+[
+  { "id": 1, "name": "Geopolitical Strategy", "slug": "geopolitical-strategy" },
+  { "id": 2, "name": "Iran", "slug": "iran" },
+  { "id": 3, "name": "Israel", "slug": "israel" },
+  { "id": 4, "name": "Lebanon", "slug": "lebanon" },
+  { "id": 5, "name": "Cryptocurrency", "slug": "cryptocurrency" },
+  { "id": 6, "name": "Sanctions", "slug": "sanctions" },
+  { "id": 7, "name": "United Nations", "slug": "united-nations" },
+  { "id": 8, "name": "U.S. Foreign Policy", "slug": "us-foreign-policy" }
+]

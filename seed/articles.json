@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "slug": "israels-strategy-in-lebanon-is-hezbollahs-best-recruitment-tool",
+    "title": "Israel's Strategy in Lebanon is Hezbollah's Best Recruitment Tool",
+    "excerpt": "Israel's strategy to levy military pressure on Hezbollah victimizes Lebanese civilians, which bolsters support for Hezbollah in the long term.",
+    "authorId": 1,
+    "publishedAt": "2026-06-11",
+    "readTime": "6 min read",
+    "imageUrl": "http://static1.squarespace.com/static/69b86faaadfca82c7abc540e/69b88aa91f10a10436634583/6a2ae811a5093e204b5fb03d/1781199126610/2023_Hezbollah_drill_in_Aaramta_04.jpg?format=1500w",
+    "topics": ["Israel", "Lebanon", "Hezbollah", "Middle East"],
+    "contentBlocks": [
+      { "sortOrder": 1, "type": "paragraph", "text": "Israel's strategy to levy military pressure on Hezbollah victimizes Lebanese civilians, which bolsters support for Hezbollah in the long term.", "src": null, "alt": null, "caption": null }
+    ]
+  },
+  {
+    "id": 2,
+    "slug": "cryptocurrency-crippled-the-american-sanctions-regime-trump-delivered-the-final-blow",
+    "title": "Cryptocurrency Crippled the American Sanctions Regime. Trump Delivered the Final Blow",
+    "excerpt": "President Trump has systematically neutered his own campaign of maximum pressure against the Iranian economy by prioritizing his investments in the cryptocurrency industry over national security.",
+    "authorId": 1,
+    "publishedAt": "2026-06-04",
+    "readTime": "5 min read",
+    "imageUrl": "http://static1.squarespace.com/static/69b86faaadfca82c7abc540e/69b88aa91f10a10436634583/6a21b9e949da7d04e5b48f1c/1780596672009/Donald_Trump_signing_EO_on_Iran_sanctions_P20180805SC-0480.jpg?format=1500w",
+    "topics": ["Sanctions", "Cryptocurrency", "Iran", "U.S. Foreign Policy"],
+    "contentBlocks": [
+      { "sortOrder": 1, "type": "paragraph", "text": "President Trump has systematically weakened his own campaign of maximum pressure against the Iranian economy.", "src": null, "alt": null, "caption": null }
+    ]
+  },
+  {
+    "id": 3,
+    "slug": "pauyxfmtcysyyfi6btipjg2jr8d79q",
+    "title": "How the MAGA Doctrine is Influencing the Race for UN Secretary General",
+    "excerpt": "The United Nations Secretary-General usually draws significant interest from the White House given the U.N.'s role in international affairs.",
+    "authorId": 1,
+    "publishedAt": "2026-05-17",
+    "readTime": "7 min read",
+    "imageUrl": "http://static1.squarespace.com/static/69b86faaadfca82c7abc540e/69b88aa91f10a10436634583/6a0a24f983278e72cc2da491/1779063471990/President_Donald_J._Trump_at_the_United_Nations_General_Assembly_%2843978172875%29.jpg?format=1500w",
+    "topics": ["United Nations", "International Institutions", "U.S. Foreign Policy"],
+    "contentBlocks": [
+      { "sortOrder": 1, "type": "paragraph", "text": "The United Nations Secretary-General race offers a useful window into the changing relationship between American politics and multilateral institutions.", "src": null, "alt": null, "caption": null }
+    ]
+  }
+]
