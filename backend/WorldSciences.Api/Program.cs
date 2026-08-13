@@ -103,3 +103,6 @@ static AuthorDto ToAuthorDto(Author author)
 {
     return new AuthorDto(author.Id, author.Name, author.Slug, author.AvatarUrl, author.Bio);
 }
+
+// Exposes the implicit Program class so WebApplicationFactory<Program> can boot the app in tests.
+public partial class Program { }
