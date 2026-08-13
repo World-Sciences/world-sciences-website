@@ -6,6 +6,24 @@ on:
   pull_request:
 
 jobs:
+  frontend-lint:
+    name: Frontend lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
   backend-tests:
     name: Backend tests
     runs-on: ubuntu-latest
@@ -19,6 +37,9 @@ jobs:
 
       - name: Restore
         run: dotnet restore backend/WorldSciences.Api.Tests/WorldSciences.Api.Tests.csproj
+
+      - name: Format check
+        run: dotnet format backend/WorldSciences.Api.Tests/WorldSciences.Api.Tests.csproj --verify-no-changes --no-restore
 
       - name: Build
         run: dotnet build backend/WorldSciences.Api.Tests/WorldSciences.Api.Tests.csproj --no-restore --configuration Release
