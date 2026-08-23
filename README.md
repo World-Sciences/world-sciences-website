@@ -56,6 +56,8 @@ curl http://localhost:5156/api/articles
 
 The frontend reads its API base URL from `VITE_API_BASE_URL` (default `http://127.0.0.1:5156`), so with the API running, `npm run dev` fetches live data from it.
 
+For deployment, set `VITE_API_BASE_URL` to the production API URL.
+
 ## Running the backend tests
 
 The integration tests need the local MongoDB from step 1 running:
@@ -64,9 +66,27 @@ docker compose up -d mongo
 dotnet test backend/WorldSciences.Api.Tests
 ```
 
+## Updating article seed data
+
+The article scraper discovers current World Sciences articles from the sitemap, scrapes each article body, keeps article images and captions, and writes MongoDB seed files:
+
+```bash
+npm run scrape:articles
+```
+
+This updates `seed/articles.json`, `seed/authors.json`, and `seed/topics.json`. It also creates a local `seed/scrape-report.json` audit file with article, image, topic, and warning counts.
+
+To test the scraper without changing seed files:
+
+```bash
+npm run scrape:articles -- --dry-run
+```
+
 ## Configuration
 
 MongoDB settings live under the `Mongo` section of `backend/WorldSciences.Api/appsettings.json` (`ConnectionString`, `DatabaseName`) and can be overridden with the environment variables `Mongo__ConnectionString` and `Mongo__DatabaseName`.
+
+Allowed frontend origins for CORS live under `Cors:AllowedOrigins` and can be overridden with environment variables such as `Cors__AllowedOrigins__0`.
 
 # Tech Stack
 

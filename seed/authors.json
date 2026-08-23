@@ -1,5 +1,30 @@
 [
-  { "id": 1, "name": "Tejas B.", "slug": "tejas-b", "avatarUrl": null, "bio": "Writer focused on politics, science, and global affairs." },
-  { "id": 2, "name": "Shiv R.", "slug": "shiv-r", "avatarUrl": null, "bio": "Contributor covering history, technology, and culture." },
-  { "id": 3, "name": "Kyle L.", "slug": "kyle-l", "avatarUrl": null, "bio": "Contributor covering international politics and security." }
+  {
+    "id": 1,
+    "name": "Ashwin Babu",
+    "slug": "ashwin-babu",
+    "avatarUrl": null,
+    "bio": "Ashwin Babu is a World Sciences contributor."
+  },
+  {
+    "id": 2,
+    "name": "Kyle Larson",
+    "slug": "kyle-larson",
+    "avatarUrl": null,
+    "bio": "Kyle Larson is a World Sciences contributor."
+  },
+  {
+    "id": 3,
+    "name": "Shiv Puliady",
+    "slug": "shiv-puliady",
+    "avatarUrl": null,
+    "bio": "Shiv Puliady is a World Sciences contributor."
+  },
+  {
+    "id": 4,
+    "name": "Tejas B",
+    "slug": "tejas-b",
+    "avatarUrl": null,
+    "bio": "Tejas B is a World Sciences contributor."
+  }
 ]

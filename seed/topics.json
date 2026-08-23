@@ -1,10 +1,102 @@
 [
-  { "id": 1, "name": "Geopolitical Strategy", "slug": "geopolitical-strategy" },
-  { "id": 2, "name": "Iran", "slug": "iran" },
-  { "id": 3, "name": "Israel", "slug": "israel" },
-  { "id": 4, "name": "Lebanon", "slug": "lebanon" },
-  { "id": 5, "name": "Cryptocurrency", "slug": "cryptocurrency" },
-  { "id": 6, "name": "Sanctions", "slug": "sanctions" },
-  { "id": 7, "name": "United Nations", "slug": "united-nations" },
-  { "id": 8, "name": "U.S. Foreign Policy", "slug": "us-foreign-policy" }
+  {
+    "id": 1,
+    "name": "China",
+    "slug": "china"
+  },
+  {
+    "id": 2,
+    "name": "Cryptocurrency",
+    "slug": "cryptocurrency"
+  },
+  {
+    "id": 3,
+    "name": "Geopolitical Strategy",
+    "slug": "geopolitical-strategy"
+  },
+  {
+    "id": 4,
+    "name": "Hezbollah",
+    "slug": "hezbollah"
+  },
+  {
+    "id": 5,
+    "name": "International Institutions",
+    "slug": "international-institutions"
+  },
+  {
+    "id": 6,
+    "name": "Iran",
+    "slug": "iran"
+  },
+  {
+    "id": 7,
+    "name": "Israel",
+    "slug": "israel"
+  },
+  {
+    "id": 8,
+    "name": "Leadership",
+    "slug": "leadership"
+  },
+  {
+    "id": 9,
+    "name": "Lebanon",
+    "slug": "lebanon"
+  },
+  {
+    "id": 10,
+    "name": "Maritime Security",
+    "slug": "maritime-security"
+  },
+  {
+    "id": 11,
+    "name": "Middle East",
+    "slug": "middle-east"
+  },
+  {
+    "id": 12,
+    "name": "Nuclear Strategy",
+    "slug": "nuclear-strategy"
+  },
+  {
+    "id": 13,
+    "name": "Public Opinion",
+    "slug": "public-opinion"
+  },
+  {
+    "id": 14,
+    "name": "Sanctions",
+    "slug": "sanctions"
+  },
+  {
+    "id": 15,
+    "name": "Taiwan",
+    "slug": "taiwan"
+  },
+  {
+    "id": 16,
+    "name": "Terrorism",
+    "slug": "terrorism"
+  },
+  {
+    "id": 17,
+    "name": "U.S. Foreign Policy",
+    "slug": "us-foreign-policy"
+  },
+  {
+    "id": 18,
+    "name": "U.S. Policy",
+    "slug": "us-policy"
+  },
+  {
+    "id": 19,
+    "name": "United Nations",
+    "slug": "united-nations"
+  },
+  {
+    "id": 20,
+    "name": "West Africa",
+    "slug": "west-africa"
+  }
 ]

@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 CONTEXT.md
+seed/scrape-report.json
 
 # .NET
 bin/

@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "scrape:articles": "node scripts/scraper/scrapeSite.js",
     "import:articles": "node scripts/importArticles.js"
   },
   "dependencies": {
