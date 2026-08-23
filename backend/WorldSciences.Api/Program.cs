@@ -33,7 +33,9 @@ api.MapGet("/articles", async (IWorldSciencesStore store) =>
     var authors = (await store.GetAuthorsAsync()).ToDictionary(author => author.Id);
     var articles = await store.GetArticlesAsync();
 
-    return articles.Select(article => ToSummaryDto(article, authors[article.AuthorId]));
+    return articles
+        .Where(article => authors.ContainsKey(article.AuthorId))
+        .Select(article => ToSummaryDto(article, authors[article.AuthorId]));
 });
 
 api.MapGet("/articles/{slug}", async (string slug, IWorldSciencesStore store) =>
@@ -47,7 +49,12 @@ api.MapGet("/articles/{slug}", async (string slug, IWorldSciencesStore store) =>
 
     var author = await store.GetAuthorByIdAsync(article.AuthorId);
 
-    return Results.Ok(ToDetailDto(article, author!));
+    if (author is null)
+    {
+        return Results.NotFound();
+    }
+
+    return Results.Ok(ToDetailDto(article, author));
 });
 
 api.MapGet("/authors", async (IWorldSciencesStore store) =>

@@ -66,6 +66,39 @@ public class ArticlesEndpointTests : IClassFixture<WebApplicationFactory<Program
         Assert.Equal(HttpStatusCode.NotFound, res.StatusCode);
     }
 
+    [Fact]
+    public async Task Get_articles_skips_article_with_missing_author()
+    {
+        var db = _client.GetDatabase(DbName);
+        await db.GetCollection<Article>("articles").InsertOneAsync(
+            new Article(2, "orphan-slug", "Orphan", "Excerpt", 99, new DateOnly(2026, 7, 1),
+                "3 min read", "http://img", new[] { "Israel" },
+                new[] { new ArticleContentBlock(1, "paragraph", Text: "Body") }));
+
+        var client = _factory.CreateClient();
+        var res = await client.GetAsync("/api/articles");
+
+        Assert.Equal(HttpStatusCode.OK, res.StatusCode);
+        var body = await res.Content.ReadFromJsonAsync<List<JsonSummary>>();
+        Assert.Single(body!);                       // orphan excluded; only the valid article remains
+        Assert.Equal("the-slug", body![0].Slug);
+    }
+
+    [Fact]
+    public async Task Get_article_by_slug_with_missing_author_returns_404()
+    {
+        var db = _client.GetDatabase(DbName);
+        await db.GetCollection<Article>("articles").InsertOneAsync(
+            new Article(2, "orphan-slug", "Orphan", "Excerpt", 99, new DateOnly(2026, 7, 1),
+                "3 min read", "http://img", new[] { "Israel" },
+                new[] { new ArticleContentBlock(1, "paragraph", Text: "Body") }));
+
+        var client = _factory.CreateClient();
+        var res = await client.GetAsync("/api/articles/orphan-slug");
+
+        Assert.Equal(HttpStatusCode.NotFound, res.StatusCode);
+    }
+
     private record JsonAuthor(string Name);
     private record JsonSummary(string Slug, JsonAuthor Author);
     private record JsonBlock(string Text);
