@@ -19,6 +19,55 @@ To test on local machine, use this command
 npm run dev 
 ```
 
+# Backend (Local API + Database)
+
+The backend is an ASP.NET Core (.NET 9) minimal API that serves articles, authors, and topics from a **MongoDB** database. For local development, MongoDB runs in Docker and is seeded automatically from the JSON fixtures in `seed/`.
+
+## Prerequisites
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) — provides Docker Engine and Docker Compose
+- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+
+## 1. Start MongoDB (and seed it)
+
+From the repo root:
+```bash
+docker compose up -d
+```
+This starts a `mongo:8` container on `localhost:27017` and runs a one-off seed container that imports `authors`, `topics`, and `articles` into the `worldsciences` database. The data persists in a Docker volume between runs.
+
+To stop it (kept data):
+```bash
+docker compose down
+```
+
+## 2. Run the API
+
+```bash
+dotnet run --project backend/WorldSciences.Api
+```
+The API listens on `http://localhost:5156`. Verify it is up:
+```bash
+curl http://localhost:5156/api/health     # {"status":"ok"}
+curl http://localhost:5156/api/articles
+```
+
+## 3. Run the frontend against it
+
+The frontend reads its API base URL from `VITE_API_BASE_URL` (default `http://127.0.0.1:5156`), so with the API running, `npm run dev` fetches live data from it.
+
+## Running the backend tests
+
+The integration tests need the local MongoDB from step 1 running:
+```bash
+docker compose up -d mongo
+dotnet test backend/WorldSciences.Api.Tests
+```
+
+## Configuration
+
+MongoDB settings live under the `Mongo` section of `backend/WorldSciences.Api/appsettings.json` (`ConnectionString`, `DatabaseName`) and can be overridden with the environment variables `Mongo__ConnectionString` and `Mongo__DatabaseName`.
+
 # Tech Stack
 
 ## Frontend
@@ -39,17 +88,17 @@ npm run dev
 
 - CssBaseline
 
-## Data (Current)
+## Backend
 
-- Mock JavaScript data (articles.js, authors.js)
+- ASP.NET Core (.NET 9) minimal API
 
-## Planned Backend
+- MongoDB (run locally via Docker Compose, seeded from `seed/`)
 
-- ASP.NET Core Web API
+## Data
 
-- PostgreSQL
+- Backend API serves articles, authors, and topics from MongoDB
 
-- Entity Framework Core
+- Frontend fetches from the API (`VITE_API_BASE_URL`, default `http://127.0.0.1:5156`)
 
 ## Planned Features
 - [x] Article search
