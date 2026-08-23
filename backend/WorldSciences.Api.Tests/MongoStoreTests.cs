@@ -8,7 +8,7 @@ using Xunit;
 public class MongoStoreTests : IAsyncLifetime
 {
     private const string ConnStr = "mongodb://localhost:27017";
-    private const string DbName = "worldsciences_test";
+    private const string DbName = "worldsciences_test_store";
     private readonly IMongoClient _client = new MongoClient(ConnStr);
     private MongoWorldSciencesStore _store = null!;
 

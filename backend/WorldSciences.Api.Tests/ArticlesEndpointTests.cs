@@ -9,7 +9,7 @@ using Xunit;
 public class ArticlesEndpointTests : IClassFixture<WebApplicationFactory<Program>>, IAsyncLifetime
 {
     private const string ConnStr = "mongodb://localhost:27017";
-    private const string DbName = "worldsciences_test";
+    private const string DbName = "worldsciences_test_api";
     private readonly WebApplicationFactory<Program> _factory;
     private readonly IMongoClient _client = new MongoClient(ConnStr);
 
