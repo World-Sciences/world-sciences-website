@@ -19,7 +19,7 @@
     "fuse.js": "^7.4.2",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
-    "react-router-dom": "^7.17.0",
+    "react-router-dom": "^7.18.2",
     "slugify": "^1.6.9"
   },
   "devDependencies": {
